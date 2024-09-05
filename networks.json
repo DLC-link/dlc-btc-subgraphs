@@ -1,0 +1,8 @@
+{
+  "arbitrum-one": {
+    "TransparentUpgradeableProxy": {
+      "address": "0x050C24dBf1eEc17babE5fc585F06116A259CC77A",
+      "startBlock": 200567152
+    }
+  }
+}
