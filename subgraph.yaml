@@ -18,7 +18,14 @@ dataSources:
       entities:
         - AdminChanged
         - BeaconUpgraded
-        - Upgraded
+        - Upgraded        
+        - Approval
+        - BurnerSet
+        - EIP712DomainChanged
+        - Initialized
+        - MinterSet
+        - OwnershipTransferred
+        - Transfer
       abis:
         - name: TransparentUpgradeableProxy
           file: ./abis/TransparentUpgradeableProxy.json
@@ -29,4 +36,18 @@ dataSources:
           handler: handleBeaconUpgraded
         - event: Upgraded(indexed address)
           handler: handleUpgraded
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: BurnerSet(address)
+          handler: handleBurnerSet
+        - event: EIP712DomainChanged()
+          handler: handleEIP712DomainChanged
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: MinterSet(address)
+          handler: handleMinterSet
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
       file: ./src/transparent-upgradeable-proxy.ts
