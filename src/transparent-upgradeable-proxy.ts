@@ -1,10 +1,152 @@
 import {
   AdminChanged as AdminChangedEvent,
   BeaconUpgraded as BeaconUpgradedEvent,
-  Upgraded as UpgradedEvent
+  Upgraded as UpgradedEvent,
+  Approval as ApprovalEvent,
+  Blacklisted as BlacklistedEvent,
+  BurnerSet as BurnerSetEvent,
+  EIP712DomainChanged as EIP712DomainChangedEvent,
+  Initialized as InitializedEvent,
+  MinterSet as MinterSetEvent,
+  OwnershipTransferred as OwnershipTransferredEvent,
+  Transfer as TransferEvent,
+  Unblacklisted as UnblacklistedEvent
 } from "../generated/TransparentUpgradeableProxy/TransparentUpgradeableProxy"
-import { AdminChanged, BeaconUpgraded, Upgraded } from "../generated/schema"
+import { AdminChanged, BeaconUpgraded, Upgraded,  Approval,
+  Blacklisted,
+  BurnerSet,
+  EIP712DomainChanged,
+  Initialized,
+  MinterSet,
+  OwnershipTransferred,
+  Transfer,
+  Unblacklisted} from "../generated/schema"
 
+  export function handleApproval(event: ApprovalEvent): void {
+    let entity = new Approval(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.owner = event.params.owner
+    entity.spender = event.params.spender
+    entity.value = event.params.value
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
+  export function handleBlacklisted(event: BlacklistedEvent): void {
+    let entity = new Blacklisted(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.account = event.params.account
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
+  export function handleBurnerSet(event: BurnerSetEvent): void {
+    let entity = new BurnerSet(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.burner = event.params.burner
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
+  export function handleEIP712DomainChanged(
+    event: EIP712DomainChangedEvent
+  ): void {
+    let entity = new EIP712DomainChanged(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
+  export function handleInitialized(event: InitializedEvent): void {
+    let entity = new Initialized(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.version = event.params.version
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
+  export function handleMinterSet(event: MinterSetEvent): void {
+    let entity = new MinterSet(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.minter = event.params.minter
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
+  export function handleOwnershipTransferred(
+    event: OwnershipTransferredEvent
+  ): void {
+    let entity = new OwnershipTransferred(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.previousOwner = event.params.previousOwner
+    entity.newOwner = event.params.newOwner
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
+  export function handleTransfer(event: TransferEvent): void {
+    let entity = new Transfer(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.from = event.params.from
+    entity.to = event.params.to
+    entity.value = event.params.value
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
+  export function handleUnblacklisted(event: UnblacklistedEvent): void {
+    let entity = new Unblacklisted(
+      event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.account = event.params.account
+  
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+  
+    entity.save()
+  }
+  
 export function handleAdminChanged(event: AdminChangedEvent): void {
   let entity = new AdminChanged(
     event.transaction.hash.concatI32(event.logIndex.toI32())
